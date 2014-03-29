@@ -1,0 +1,144 @@
+<html>
+<head>
+<style>
+table,th,td
+{
+border:2px solid black;
+}
+td {
+width: 50px;
+height: 50px;
+text-align: center;
+font-size:14pt;
+}
+</style>
+<script>
+var count=0;
+function func(t)
+{
+ count++;
+ var val= parseInt(t.innerHTML);
+ var col=t.style.color;
+ var chance=(count%2==1)?'green':'red';
+ if(isNaN(val))
+ {
+  if(count%2==0)
+  {
+   t.style.color='red';
+   } 
+  else
+  {
+   t.style.color='green';
+  }
+  t.innerHTML=1;
+  t.style.backgroundColor=t.style.color; setTimeout(function(){t.style.backgroundColor='white';},200);
+ }
+ else if(col.match(chance)){
+  change(t,col);
+  t.style.backgroundColor=col; setTimeout(function(){t.style.backgroundColor='white';},200);
+  validate(t,col);
+ }
+ else {
+  count--;
+ }
+ 
+}
+var queue= new Array();
+function validate(t,col)
+{
+//alert(t.innerHTML+col);
+ var d=parseInt(t.id);
+ var l=0,r=0,b=0,u=0;
+ b=(d/5+1)<5?d+5:-1;
+ u=(d/5-1>=0)?d-5:-1;
+ l=(d%5-1>=0)?d-1:-1;
+ r=(d%5+1<5)?d+1:-1;
+ 
+ var count=0;
+ var bo,uo,lo,ro;
+ if(b>=0) {count++;bo=document.getElementById(b);}
+ if(u>=0) {count++;uo=document.getElementById(u);}
+ if(l>=0) {count++;lo=document.getElementById(l);}
+ if(r>=0) {count++;ro=document.getElementById(r);}
+ if(count==parseInt(t.innerHTML))
+ {
+ //alert(bo+uo+lo+ro);
+ t.innerHTML='';
+ t.style.color='black';
+  if(bo!=null) { change(bo,col); bo.style.backgroundColor=col; setTimeout(function(){bo.style.backgroundColor='white';},200);}
+  if(uo!=null) { change(uo,col); uo.style.backgroundColor=col; setTimeout(function(){uo.style.backgroundColor='white';},200);}
+  if(lo!=null) { change(lo,col); lo.style.backgroundColor=col; setTimeout(function(){lo.style.backgroundColor='white';},200);}
+  if(ro!=null) { change(ro,col); ro.style.backgroundColor=col; setTimeout(function(){ro.style.backgroundColor='white';},200);}
+ }
+ if(queue.length>0) window.setTimeout(function(){validate(queue.shift(),col);},300);
+ else gameend();
+}
+function change(t,col)
+{
+//alert(t.innerHTML+col);
+//alert(t.id);
+ t.style.color=col;
+ t.innerHTML=(t.innerHTML==='')?1:parseInt(t.innerHTML)+1;
+ queue.push(t);
+}
+function gameend(){
+ var gno=0;
+ var rno=0;
+ for(var i=0;i<25;i++)
+ {
+  if(document.getElementById(i).style.color=='green')
+   gno++;
+  else if(document.getElementById(i).style.color=='red')
+   rno++
+ }
+ if(rno==0) {
+  alert("Green Player Won");
+  location='chainrxn.html';
+ }
+ else if(gno==0) {
+  alert("Red Player Won");
+  location='chainrxn.html';
+ }
+}
+</script>
+</head>
+<body >
+<table>
+<tr>
+<td id="0"onclick="func(this)"></td> 
+<td id ="1"onclick="func(this)"></td>
+<td id="2" onclick="func(this)"></td>
+<td id="3"onclick="func(this)"></td>
+<td id="4"onclick="func(this)"></td>
+</tr>
+<tr>
+<td id="5"onclick="func(this)"></td> 
+<td id="6"onclick="func(this)"></td>
+<td id="7" onclick="func(this)"></td>
+<td id="8"onclick="func(this)"></td>
+<td id="9"onclick="func(this)"></td>
+</tr>
+<tr>
+<td id="10"onclick="func(this)"></td> 
+<td id ="11"onclick="func(this)"></td>
+<td id="12" onclick="func(this)"></td>
+<td id="13"onclick="func(this)"></td>
+<td id="14"onclick="func(this)"></td>
+</tr>
+<tr>
+<td id="15"onclick="func(this)"></td> 
+<td id ="16"onclick="func(this)"></td>
+<td id="17" onclick="func(this)"></td>
+<td id="18"onclick="func(this)"></td>
+<td id="19"onclick="func(this)"></td>
+</tr>
+<tr>
+<td id="20"onclick="func(this)"></td> 
+<td id ="21"onclick="func(this)"></td>
+<td id="22" onclick="func(this)"></td>
+<td id="23"onclick="func(this)"></td>
+<td id="24"onclick="func(this)"></td>
+</tr>
+</table>
+</body>
+</html>
