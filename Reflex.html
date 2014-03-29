@@ -1,0 +1,102 @@
+<html>
+<head>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script>
+var count=1000;
+var start=1;
+var end=1100;
+function startcount()
+{
+//alert('Hi');
+if(start==1){
+$('#but').text('Stop');
+abc();
+}
+else {
+$('#but').text('Stop');
+var res= (start>count)?(start-count):(count-start);
+alert(res);
+location='snake.html';
+}
+}
+function abc()
+{
+start++;
+$('#count').text(start);
+if(start>end) {
+return;
+}
+setTimeout(abc,4);
+}
+
+document.onkeydown = checkKey;
+
+function checkKey(e) {
+    e = e || window.event;
+    if(e.keyCode=='13') {
+    startcount();
+    }
+}
+
+$(document).ready(function() {
+//$('#but').click(startcount());
+$('#outer').hide().fadeIn(1000);
+$('#help').hide();
+$('#but').animate({opacity:0});
+$('#hea').hide().fadeIn(100).animate({bottom:'130px'},1000);
+$('#but').animate({top:'100px',opacity:1},2000);
+$('#help').delay(2000).fadeIn(1000);
+});
+</script>
+<style type="text/css">
+#hea {
+text-align: center;
+position: relative;
+margin-top: 150px;
+}
+hr {
+position: relative;
+list-style: solid;
+margin-top: -150px;
+}
+#outer {
+border-width: 7px;
+border-style: solid;
+border-color: #25383C;
+width:400px;
+height:400px;
+background-color: #d3d3d3;
+ 
+}
+
+
+#but {
+position: relative;
+width:100px;
+margin-left: 150px;
+margin-top: 0px;
+background-color: grey;
+height:30px;
+}
+
+#count {
+position: relative;
+width: 100%;
+height:40px;
+margin-top:40px;
+text-align: center;
+font-size: 24pt;
+
+}
+</style>
+</head>
+<body>
+<div id="outer">
+<h1 id="hea"> Check your Reflex </h1>
+<hr>
+<div id="count"></div>
+<button id="but" onclick="startcount();"> Start</button>
+<div id="help" style="position:relative;margin-top:200px;margin-left:30px;font-weight: bold;" >Hit when value is 1000</div>
+</div>
+</body>
+</html>
